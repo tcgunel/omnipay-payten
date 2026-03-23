@@ -10,60 +10,60 @@ use Omnipay\Payten\Traits\GettersSettersTrait;
 
 abstract class RemoteAbstractRequest extends AbstractRequest
 {
-	use GettersSettersTrait;
+    use GettersSettersTrait;
 
-	protected $endpoint = '';
+    protected $endpoint = '';
 
-	/**
-	 * @throws InvalidRequestException
-	 */
-	protected function validateSettings(): void
-	{
-		$this->validate("merchantId", "merchantUser", "merchantPassword");
-	}
+    /**
+     * @throws InvalidRequestException
+     */
+    protected function validateSettings(): void
+    {
+        $this->validate('merchantId', 'merchantUser', 'merchantPassword');
+    }
 
-	/**
-	 * Resolve the API URL based on provider and test mode.
-	 */
-	protected function getApiUrl(): string
-	{
-		$provider = $this->getProvider() ?? Provider::PAYTEN;
+    /**
+     * Resolve the API URL based on provider and test mode.
+     */
+    protected function getApiUrl(): string
+    {
+        $provider = $this->getProvider() ?? Provider::PAYTEN;
 
-		if (!isset(Provider::PROVIDERS[$provider])) {
-			throw new OmnipayPaytenInvalidProviderException(
-				"Invalid provider: {$provider}. Valid providers: " . implode(', ', Provider::VALID_PROVIDERS)
-			);
-		}
+        if (!isset(Provider::PROVIDERS[$provider])) {
+            throw new OmnipayPaytenInvalidProviderException(
+                "Invalid provider: {$provider}. Valid providers: " . implode(', ', Provider::VALID_PROVIDERS)
+            );
+        }
 
-		$key = $this->getTestMode() ? 'test_api' : 'live_api';
+        $key = $this->getTestMode() ? 'test_api' : 'live_api';
 
-		return Provider::PROVIDERS[$provider][$key];
-	}
+        return Provider::PROVIDERS[$provider][$key];
+    }
 
-	/**
-	 * Resolve the 3D URL based on provider and test mode.
-	 */
-	protected function get3dUrl(): string
-	{
-		$provider = $this->getProvider() ?? Provider::PAYTEN;
+    /**
+     * Resolve the 3D URL based on provider and test mode.
+     */
+    protected function get3dUrl(): string
+    {
+        $provider = $this->getProvider() ?? Provider::PAYTEN;
 
-		if (!isset(Provider::PROVIDERS[$provider])) {
-			throw new OmnipayPaytenInvalidProviderException(
-				"Invalid provider: {$provider}. Valid providers: " . implode(', ', Provider::VALID_PROVIDERS)
-			);
-		}
+        if (!isset(Provider::PROVIDERS[$provider])) {
+            throw new OmnipayPaytenInvalidProviderException(
+                "Invalid provider: {$provider}. Valid providers: " . implode(', ', Provider::VALID_PROVIDERS)
+            );
+        }
 
-		$key = $this->getTestMode() ? 'test_3d' : 'live_3d';
+        $key = $this->getTestMode() ? 'test_3d' : 'live_3d';
 
-		$url = Provider::PROVIDERS[$provider][$key];
+        $url = Provider::PROVIDERS[$provider][$key];
 
-		return str_replace('{merchant}', $this->getMerchantId(), $url);
-	}
+        return str_replace('{merchant}', $this->getMerchantId(), $url);
+    }
 
-	protected function get_card($key)
-	{
-		return $this->getCard() ? $this->getCard()->$key() : null;
-	}
+    protected function get_card($key)
+    {
+        return $this->getCard() ? $this->getCard()->$key() : null;
+    }
 
-	abstract protected function createResponse($data);
+    abstract protected function createResponse($data);
 }

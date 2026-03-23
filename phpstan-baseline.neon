@@ -1,0 +1,56 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to an undefined property Omnipay\\\\Payten\\\\Gateway\\:\\:\\$endpoint\\.$#"
+			count: 1
+			path: src/Gateway.php
+
+		-
+			message: "#^Method Omnipay\\\\Payten\\\\Message\\\\CompletePurchaseResponse\\:\\:getRedirectData\\(\\) should return array but returns null\\.$#"
+			count: 1
+			path: src/Message/CompletePurchaseResponse.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: src/Message/InstallmentQueryRequest.php
+
+		-
+			message: "#^Method Omnipay\\\\Payten\\\\Message\\\\InstallmentQueryResponse\\:\\:getRedirectData\\(\\) should return array but returns null\\.$#"
+			count: 1
+			path: src/Message/InstallmentQueryResponse.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 2
+			path: src/Message/PurchaseRequest.php
+
+		-
+			message: "#^Method Omnipay\\\\Payten\\\\Message\\\\PurchaseResponse\\:\\:getRedirectUrl\\(\\) should return string but returns null\\.$#"
+			count: 1
+			path: src/Message/PurchaseResponse.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: src/Message/RefundRequest.php
+
+		-
+			message: "#^Method Omnipay\\\\Payten\\\\Message\\\\RefundResponse\\:\\:getRedirectData\\(\\) should return array but returns null\\.$#"
+			count: 1
+			path: src/Message/RefundResponse.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Message/RemoteAbstractRequest.php
+
+		-
+			message: "#^Method Omnipay\\\\Payten\\\\Message\\\\TransactionQueryResponse\\:\\:getRedirectData\\(\\) should return array but returns null\\.$#"
+			count: 1
+			path: src/Message/TransactionQueryResponse.php
+
+		-
+			message: "#^Method Omnipay\\\\Payten\\\\Message\\\\VoidResponse\\:\\:getRedirectData\\(\\) should return array but returns null\\.$#"
+			count: 1
+			path: src/Message/VoidResponse.php

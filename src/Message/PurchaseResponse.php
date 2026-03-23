@@ -12,114 +12,114 @@ use Psr\Http\Message\ResponseInterface;
 
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
-	protected $response;
+    protected $response;
 
-	protected $request;
+    protected $request;
 
-	public function __construct(RequestInterface $request, $data)
-	{
-		parent::__construct($request, $data);
+    public function __construct(RequestInterface $request, $data)
+    {
+        parent::__construct($request, $data);
 
-		$this->request = $request;
+        $this->request = $request;
 
-		$this->response = $data;
+        $this->response = $data;
 
-		if ($data instanceof ResponseInterface) {
+        if ($data instanceof ResponseInterface) {
 
-			$body = (string)$data->getBody();
+            $body = (string) $data->getBody();
 
-			try {
+            try {
 
-				$decoded = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+                $decoded = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
 
-				$this->response = new PurchaseResponseModel($decoded);
+                $this->response = new PurchaseResponseModel($decoded);
 
-			} catch (JsonException $e) {
+            } catch (JsonException $e) {
 
-				$this->response = new PurchaseResponseModel([
-					'responseCode' => '99',
-					'errorMsg'     => $body,
-				]);
+                $this->response = new PurchaseResponseModel([
+                    'responseCode' => '99',
+                    'errorMsg' => $body,
+                ]);
 
-			}
+            }
 
-		}
-	}
+        }
+    }
 
-	public function isSuccessful(): bool
-	{
-		if ($this->response instanceof Purchase3dRequestModel) {
-			// 3D redirect is not yet "successful" - needs completePurchase
-			return false;
-		}
+    public function isSuccessful(): bool
+    {
+        if ($this->response instanceof Purchase3dRequestModel) {
+            // 3D redirect is not yet "successful" - needs completePurchase
+            return false;
+        }
 
-		if ($this->response instanceof PurchaseResponseModel) {
-			return $this->response->responseCode === '00';
-		}
+        if ($this->response instanceof PurchaseResponseModel) {
+            return $this->response->responseCode === '00';
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public function isRedirect(): bool
-	{
-		return $this->response instanceof Purchase3dRequestModel;
-	}
+    public function isRedirect(): bool
+    {
+        return $this->response instanceof Purchase3dRequestModel;
+    }
 
-	public function getRedirectUrl()
-	{
-		if (!$this->isRedirect()) {
-			return null;
-		}
+    public function getRedirectUrl()
+    {
+        if (!$this->isRedirect()) {
+            return null;
+        }
 
-		/** @var PurchaseRequest $request */
-		$request = $this->getRequest();
+        /** @var PurchaseRequest $request */
+        $request = $this->getRequest();
 
-		return $request->getEndpoint();
-	}
+        return $request->getEndpoint();
+    }
 
-	public function getRedirectMethod(): string
-	{
-		return 'POST';
-	}
+    public function getRedirectMethod(): string
+    {
+        return 'POST';
+    }
 
-	public function getRedirectData(): array
-	{
-		if ($this->response instanceof Purchase3dRequestModel) {
-			return $this->response->toArray();
-		}
+    public function getRedirectData(): array
+    {
+        if ($this->response instanceof Purchase3dRequestModel) {
+            return $this->response->toArray();
+        }
 
-		return [];
-	}
+        return [];
+    }
 
-	public function getMessage(): ?string
-	{
-		if ($this->response instanceof PurchaseResponseModel) {
-			return $this->response->errorMsg ?: $this->response->responseMsg;
-		}
+    public function getMessage(): ?string
+    {
+        if ($this->response instanceof PurchaseResponseModel) {
+            return $this->response->errorMsg ?: $this->response->responseMsg;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public function getCode(): ?string
-	{
-		if ($this->response instanceof PurchaseResponseModel) {
-			return $this->response->responseCode;
-		}
+    public function getCode(): ?string
+    {
+        if ($this->response instanceof PurchaseResponseModel) {
+            return $this->response->responseCode;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public function getTransactionReference(): ?string
-	{
-		if ($this->response instanceof PurchaseResponseModel) {
-			return $this->response->pgTranId;
-		}
+    public function getTransactionReference(): ?string
+    {
+        if ($this->response instanceof PurchaseResponseModel) {
+            return $this->response->pgTranId;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public function getData()
-	{
-		return $this->response;
-	}
+    public function getData()
+    {
+        return $this->response;
+    }
 }
