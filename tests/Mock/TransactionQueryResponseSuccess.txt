@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Server: Apache
+Content-Type: application/json
+Content-Length: 250
+
+{"responseCode":"00","responseMsg":"Approved","errorMsg":"","merchantPaymentId":"ORDER-12345","pgTranId":"PG-TXN-001","amount":"100.00","currency":"TRY","installmentCount":"1"}

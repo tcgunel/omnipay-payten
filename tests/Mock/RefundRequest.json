@@ -1,0 +1,9 @@
+{
+  "merchantId": "testmerchant",
+  "merchantUser": "testuser",
+  "merchantPassword": "testpassword",
+  "provider": "payten",
+  "transactionId": "ORDER-12345",
+  "amount": "50.00",
+  "testMode": true
+}

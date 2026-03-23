@@ -1,0 +1,11 @@
+{
+  "merchantId": "testmerchant",
+  "merchantUser": "testuser",
+  "merchantPassword": "testpassword",
+  "provider": "payten",
+  "card": {
+    "number": "4355084355084358"
+  },
+  "amount": "100.00",
+  "testMode": true
+}

@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Server: Apache
+Content-Type: application/json
+Content-Length: 150
+
+{"responseCode":"99","responseMsg":"Declined","errorMsg":"Transaction already voided","errorCode":"ERR-002"}

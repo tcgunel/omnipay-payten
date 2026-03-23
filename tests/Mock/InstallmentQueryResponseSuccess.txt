@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Server: Apache
+Content-Type: application/json
+Content-Length: 300
+
+{"responseCode":"00","responseMsg":"Approved","errorMsg":"","installmentPlanList":[{"numberOfInstallment":"1","totalAmount":"100.00"},{"numberOfInstallment":"3","totalAmount":"103.50"},{"numberOfInstallment":"6","totalAmount":"107.00"}]}
