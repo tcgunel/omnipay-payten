@@ -42,8 +42,12 @@ abstract class RemoteAbstractRequest extends AbstractRequest
 
     /**
      * Resolve the 3D URL based on provider and test mode.
+     *
+     * The MSU Direct Post 3D form must be posted to the sale3d endpoint of the
+     * secure session token, not the merchant id (the old merchant-in-URL flow
+     * answers "ERR10097 Sonlandırılmış oturum bilgisi").
      */
-    protected function get3dUrl(): string
+    protected function get3dUrl(string $sessionToken): string
     {
         $provider = $this->getProvider() ?? Provider::PAYTEN;
 
@@ -57,7 +61,7 @@ abstract class RemoteAbstractRequest extends AbstractRequest
 
         $url = Provider::PROVIDERS[$provider][$key];
 
-        return str_replace('{merchant}', $this->getMerchantId(), $url);
+        return str_replace('{sessionToken}', $sessionToken, $url);
     }
 
     protected function get_card($key)

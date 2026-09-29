@@ -49,6 +49,21 @@ class TransactionQueryTest extends TestCase
         $this->assertInstanceOf(TransactionQueryResponseModel::class, $data);
         $this->assertSame('100.00', $data->amount);
         $this->assertSame('TRY', $data->currency);
+        $this->assertCount(1, $data->transactionList);
+    }
+
+    /**
+     * A query that finds no transaction is not a successful payment; the
+     * reconciliation job must keep polling.
+     */
+    public function test_transaction_query_response_without_transactions_is_not_successful()
+    {
+        $httpResponse = $this->getMockHttpResponse('TransactionQueryResponseNotFound.txt');
+
+        $response = new TransactionQueryResponse($this->getMockRequest(), $httpResponse);
+
+        $this->assertSame('00', $response->getCode());
+        $this->assertFalse($response->isSuccessful());
     }
 
     public function test_transaction_query_response_api_error()

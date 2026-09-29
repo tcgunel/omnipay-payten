@@ -2,25 +2,71 @@
 
 namespace Omnipay\Payten\Models;
 
-class Purchase3dRequestModel extends PurchaseRequestModel
+/**
+ * MSU v2 Direct Post 3D form (posted to post/sale3d/{sessionToken}).
+ *
+ * Field names are camelCase in this endpoint, unlike the API actions.
+ */
+class Purchase3dRequestModel extends BaseModel
 {
     /**
-     * Return URL for both success and failure in 3D flow.
+     * Card owner name.
      *
-     * @var string
+     * @var string|null
      */
-    public $RETURNURL;
+    public $cardOwner;
 
     /**
-     * The ACTION is not sent in 3D form post (URL contains it).
-     * Override toArray to exclude ACTION.
+     * Card number (PAN).
+     *
+     * @var string|null
+     */
+    public $pan;
+
+    /**
+     * Expiry month, two digits (e.g. "05").
+     *
+     * @var string|null
+     */
+    public $expiryMonth;
+
+    /**
+     * Expiry year, four digits (e.g. "2031").
+     *
+     * @var string|null
+     */
+    public $expiryYear;
+
+    /**
+     * Card verification code.
+     *
+     * @var string|null
+     */
+    public $cvv;
+
+    /**
+     * Optional card name.
+     *
+     * @var string|null
+     */
+    public $cardName;
+
+    /**
+     * Installment count (1 = no installment).
+     *
+     * @var string|int|null
+     */
+    public $installmentCount;
+
+    /**
+     * Convert model to form data array, removing null values.
      */
     public function toArray(): array
     {
-        $data = parent::toArray();
+        $data = get_object_vars($this);
 
-        unset($data['ACTION']);
-
-        return $data;
+        return array_filter($data, function ($value) {
+            return $value !== null;
+        });
     }
 }

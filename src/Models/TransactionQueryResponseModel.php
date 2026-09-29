@@ -47,6 +47,20 @@ class TransactionQueryResponseModel extends BaseModel
     public $pgTranId;
 
     /**
+     * Number of transactions returned for the query.
+     *
+     * @var string|int
+     */
+    public $transactionCount;
+
+    /**
+     * Transactions returned for the query.
+     *
+     * @var array<int, array<string, mixed>>
+     */
+    public $transactionList = [];
+
+    /**
      * Transaction amount.
      *
      * @var string

@@ -1,6 +1,6 @@
 HTTP/1.1 200 OK
 Server: Apache
 Content-Type: application/json
-Content-Length: 250
+Content-Length: 382
 
-{"responseCode":"00","responseMsg":"Approved","errorMsg":"","merchantPaymentId":"ORDER-12345","pgTranId":"PG-TXN-001","amount":"100.00","currency":"TRY","installmentCount":"1"}
+{"responseCode":"00","responseMsg":"Approved","errorMsg":"","merchantPaymentId":"ORDER-12345","transactionCount":"1","totalTransactionCount":"1","transactionList":[{"pgTranReturnCode":"00","pgOrderId":"ORDER-12345","pgTranId":"PG-TXN-001","amount":"100.00","currency":"TRY","transactionStatus":"AP","installmentCount":"1"}],"amount":"100.00","currency":"TRY","installmentCount":"1"}

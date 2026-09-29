@@ -6,6 +6,8 @@ class Action
 {
     public const SALE = 'SALE';
 
+    public const SESSIONTOKEN = 'SESSIONTOKEN';
+
     public const VOID = 'VOID';
 
     public const REFUND = 'REFUND';

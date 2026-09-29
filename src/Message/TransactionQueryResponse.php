@@ -46,7 +46,19 @@ class TransactionQueryResponse extends AbstractResponse
 
     public function isSuccessful(): bool
     {
-        return $this->response->responseCode === '00';
+        if ($this->response->responseCode !== '00') {
+            return false;
+        }
+
+        $transactions = $this->response->transactionList;
+
+        if (! is_array($transactions) || $transactions === []) {
+            return false;
+        }
+
+        $first = $transactions[0] ?? [];
+
+        return is_array($first) && (string) ($first['pgTranReturnCode'] ?? '') === '00';
     }
 
     public function getMessage(): ?string
@@ -61,7 +73,13 @@ class TransactionQueryResponse extends AbstractResponse
 
     public function getTransactionReference(): ?string
     {
-        return $this->response->pgTranId;
+        if (! empty($this->response->pgTranId)) {
+            return $this->response->pgTranId;
+        }
+
+        $first = $this->response->transactionList[0] ?? [];
+
+        return is_array($first) ? ($first['pgTranId'] ?? null) : null;
     }
 
     public function getTransactionId(): ?string

@@ -33,8 +33,8 @@ class ProviderTest extends TestCase
 
         $this->assertSame('https://entegrasyon.asseco-see.com.tr/msu/api/v2', $urls['test_api']);
         $this->assertSame('https://merchantsafeunipay.com/msu/api/v2', $urls['live_api']);
-        $this->assertStringContainsString('{merchant}', $urls['test_3d']);
-        $this->assertStringContainsString('{merchant}', $urls['live_3d']);
+        $this->assertStringContainsString('{sessionToken}', $urls['test_3d']);
+        $this->assertStringContainsString('{sessionToken}', $urls['live_3d']);
     }
 
     public function test_paratika_urls()
@@ -61,11 +61,11 @@ class ProviderTest extends TestCase
         $this->assertSame('https://vpos.ziraatpay.com.tr/ziraatpay/api/v2', $urls['live_api']);
     }
 
-    public function test_3d_urls_contain_merchant_placeholder()
+    public function test_3d_urls_contain_session_token_placeholder()
     {
         foreach (Provider::PROVIDERS as $name => $urls) {
-            $this->assertStringContainsString('{merchant}', $urls['test_3d'], "Provider '{$name}' test_3d missing {merchant}");
-            $this->assertStringContainsString('{merchant}', $urls['live_3d'], "Provider '{$name}' live_3d missing {merchant}");
+            $this->assertStringContainsString('{sessionToken}', $urls['test_3d'], "Provider '{$name}' test_3d missing {sessionToken}");
+            $this->assertStringContainsString('{sessionToken}', $urls['live_3d'], "Provider '{$name}' live_3d missing {sessionToken}");
         }
     }
 

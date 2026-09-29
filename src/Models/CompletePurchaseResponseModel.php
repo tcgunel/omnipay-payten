@@ -47,11 +47,53 @@ class CompletePurchaseResponseModel extends BaseModel
     public $pgTranId;
 
     /**
+     * Bank transaction error code (if any).
+     *
+     * @var string
+     */
+    public $pgTranErrorCode;
+
+    /**
+     * Bank transaction error message (if any).
+     *
+     * @var string
+     */
+    public $pgTranErrorText;
+
+    /**
      * 3D secure status indicator.
      *
      * @var string
      */
     public $mdStatus;
+
+    /**
+     * Session token the payment was started with.
+     *
+     * @var string
+     */
+    public $sessionToken;
+
+    /**
+     * Customer id sent with the session token request.
+     *
+     * @var string
+     */
+    public $customerId;
+
+    /**
+     * Random value used in the sdSha512 signature.
+     *
+     * @var string
+     */
+    public $random;
+
+    /**
+     * Callback signature (SHA-512 hex).
+     *
+     * @var string
+     */
+    public $sdSha512;
 
     /**
      * Raw response data (all callback fields).

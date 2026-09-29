@@ -29,7 +29,13 @@ class CompletePurchaseRequest extends RemoteAbstractRequest
             'errorCode' => $rawData['errorCode'] ?? null,
             'merchantPaymentId' => $rawData['merchantPaymentId'] ?? $rawData['MERCHANTPAYMENTID'] ?? null,
             'pgTranId' => $rawData['pgTranId'] ?? null,
+            'pgTranErrorCode' => $rawData['pgTranErrorCode'] ?? null,
+            'pgTranErrorText' => $rawData['pgTranErrorText'] ?? null,
             'mdStatus' => $rawData['mdStatus'] ?? null,
+            'sessionToken' => $rawData['sessionToken'] ?? null,
+            'customerId' => $rawData['customerId'] ?? null,
+            'random' => $rawData['random'] ?? null,
+            'sdSha512' => $rawData['sdSha512'] ?? null,
             'rawData' => $rawData,
         ]);
 

@@ -1,0 +1,6 @@
+HTTP/1.1 200 OK
+Server: Apache
+Content-Type: application/json
+Content-Length: 166
+
+{"responseCode":"00","responseMsg":"Approved","errorMsg":"","merchantPaymentId":"ORDER-99999","transactionCount":"0","totalTransactionCount":"0","transactionList":[]}

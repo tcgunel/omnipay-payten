@@ -28,7 +28,9 @@ class CompletePurchaseResponse extends AbstractResponse
 
     public function getMessage(): ?string
     {
-        return $this->response->errorMsg ?: $this->response->responseMsg;
+        return $this->response->errorMsg
+            ?: $this->response->pgTranErrorText
+            ?: $this->response->responseMsg;
     }
 
     public function getCode(): ?string
